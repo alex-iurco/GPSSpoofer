@@ -9,12 +9,7 @@ class ConnectionService: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     func connect() {
-        if deviceManager.startDeviceDiscovery() {
-            isConnected = true
-        } else {
-            error = DeviceError.connectionFailed
-            isConnected = false
-        }
+        isConnected = deviceManager.startDeviceDiscovery()
     }
     
     func disconnect() {
