@@ -11,7 +11,10 @@
 		51A3B09C2D8D13110071BA81 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3B09B2D8D13110071BA81 /* ContentView.swift */; };
 		51A3B09E2D8D13130071BA81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51A3B09D2D8D13130071BA81 /* Assets.xcassets */; };
 		51A3B0A12D8D13130071BA81 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51A3B0A02D8D13130071BA81 /* Preview Assets.xcassets */; };
-		51A3B0A82D8D13C40071BA81 /* Podfile.metal in Sources */ = {isa = PBXBuildFile; fileRef = 51A3B0A72D8D13C40071BA81 /* Podfile.metal */; };
+		51A3B0AA2D8D13140071BA81 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3B0A92D8D13140071BA81 /* LocationService.swift */; };
+		51A3B0AC2D8D13150071BA81 /* ConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3B0AB2D8D13150071BA81 /* ConnectionService.swift */; };
+		51A3B0B22D8D131A0071BA81 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3B0B12D8D131A0071BA81 /* DeviceManager.swift */; };
+		51A3B0B32D8D131A0071BA82 /* USBDeviceCommunication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3B0B42D8D131A0071BA82 /* USBDeviceCommunication.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,7 +23,11 @@
 		51A3B09B2D8D13110071BA81 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		51A3B09D2D8D13130071BA81 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		51A3B0A02D8D13130071BA81 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		51A3B0A72D8D13C40071BA81 /* Podfile.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Podfile.metal; sourceTree = "<group>"; };
+		51A3B0A92D8D13130071BA81 /* GPSSpoofer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GPSSpoofer.entitlements; sourceTree = "<group>"; };
+		51A3B0A92D8D13140071BA81 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		51A3B0AB2D8D13150071BA81 /* ConnectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionService.swift; sourceTree = "<group>"; };
+		51A3B0B12D8D131A0071BA81 /* DeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
+		51A3B0B42D8D131A0071BA82 /* USBDeviceCommunication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USBDeviceCommunication.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,7 +44,6 @@
 		51A3B08D2D8D13110071BA81 = {
 			isa = PBXGroup;
 			children = (
-				51A3B0A72D8D13C40071BA81 /* Podfile.metal */,
 				51A3B0982D8D13110071BA81 /* GPSSpoofer */,
 				51A3B0972D8D13110071BA81 /* Products */,
 			);
@@ -57,9 +63,46 @@
 				51A3B0992D8D13110071BA81 /* GPSSpooferApp.swift */,
 				51A3B09B2D8D13110071BA81 /* ContentView.swift */,
 				51A3B09D2D8D13130071BA81 /* Assets.xcassets */,
+				51A3B0A92D8D13130071BA81 /* GPSSpoofer.entitlements */,
+				51A3B0AD2D8D13160071BA81 /* Services */,
 				51A3B09F2D8D13130071BA81 /* Preview Content */,
 			);
 			path = GPSSpoofer;
+			sourceTree = "<group>";
+		};
+		51A3B0AD2D8D13160071BA81 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				51A3B0AE2D8D13170071BA81 /* LocationService */,
+				51A3B0AF2D8D13180071BA81 /* ConnectionService */,
+				51A3B0B02D8D13190071BA81 /* DeviceManager */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		51A3B0AE2D8D13170071BA81 /* LocationService */ = {
+			isa = PBXGroup;
+			children = (
+				51A3B0A92D8D13140071BA81 /* LocationService.swift */,
+			);
+			path = LocationService;
+			sourceTree = "<group>";
+		};
+		51A3B0AF2D8D13180071BA81 /* ConnectionService */ = {
+			isa = PBXGroup;
+			children = (
+				51A3B0AB2D8D13150071BA81 /* ConnectionService.swift */,
+			);
+			path = ConnectionService;
+			sourceTree = "<group>";
+		};
+		51A3B0B02D8D13190071BA81 /* DeviceManager */ = {
+			isa = PBXGroup;
+			children = (
+				51A3B0B12D8D131A0071BA81 /* DeviceManager.swift */,
+				51A3B0B42D8D131A0071BA82 /* USBDeviceCommunication.swift */,
+			);
+			path = DeviceManager;
 			sourceTree = "<group>";
 		};
 		51A3B09F2D8D13130071BA81 /* Preview Content */ = {
@@ -140,9 +183,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51A3B0A82D8D13C40071BA81 /* Podfile.metal in Sources */,
 				51A3B09C2D8D13110071BA81 /* ContentView.swift in Sources */,
 				51A3B09A2D8D13110071BA81 /* GPSSpooferApp.swift in Sources */,
+				51A3B0AA2D8D13140071BA81 /* LocationService.swift in Sources */,
+				51A3B0AC2D8D13150071BA81 /* ConnectionService.swift in Sources */,
+				51A3B0B22D8D131A0071BA81 /* DeviceManager.swift in Sources */,
+				51A3B0B32D8D131A0071BA82 /* USBDeviceCommunication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,11 +245,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -253,13 +299,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -268,27 +313,27 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = GPSSpoofer/GPSSpoofer.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GPSSpoofer/Preview Content\"";
-				DEVELOPMENT_TEAM = 9JSWC8YTA3;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_NSLocationUsageDescription = "GPS Spoofer needs location access to send location data to your iOS device";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"@executable_path/Frameworks",
+					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alex.GPSSpoofer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -297,27 +342,27 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = GPSSpoofer/GPSSpoofer.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GPSSpoofer/Preview Content\"";
-				DEVELOPMENT_TEAM = 9JSWC8YTA3;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_NSLocationUsageDescription = "GPS Spoofer needs location access to send location data to your iOS device";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"@executable_path/Frameworks",
+					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alex.GPSSpoofer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
