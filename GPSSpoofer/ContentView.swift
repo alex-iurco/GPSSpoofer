@@ -8,19 +8,20 @@ struct ContentView: View {
     @State private var altitude: String = ""
     
     var body: some View {
-        VStack(spacing: 16) {
-            // Title and Status
+        VStack(alignment: .center, spacing: 16) {
+            // Title
             Text("GPS Spoofer")
-                .font(.title)
-                .padding(.top)
+                .font(.system(size: 24, weight: .medium))
+                .padding(.top, 12)
             
             // Connection Status
-            HStack {
+            HStack(spacing: 6) {
                 Circle()
                     .fill(isConnected ? Color.green : Color.red)
                     .frame(width: 8, height: 8)
                 Text(isConnected ? "Connected" : "Not Connected")
                     .foregroundColor(isConnected ? .green : .red)
+                    .font(.system(size: 13))
             }
             
             // Connect Button
@@ -28,7 +29,7 @@ struct ContentView: View {
                 isConnected.toggle()
             }) {
                 Text(isConnected ? "Disconnect" : "Connect")
-                    .frame(width: 100)
+                    .frame(minWidth: 100)
             }
             .buttonStyle(.borderedProminent)
             .tint(isConnected ? .red : .blue)
@@ -36,31 +37,36 @@ struct ContentView: View {
             if isConnected {
                 // GPS Input Fields
                 VStack(spacing: 12) {
-                    // Latitude Input
-                    HStack {
-                        Text("Latitude:")
-                            .frame(width: 80, alignment: .trailing)
-                        TextField("Enter latitude", text: $latitude)
-                            .frame(width: 120)
-                            .textFieldStyle(.roundedBorder)
-                    }
-                    
-                    // Longitude Input
-                    HStack {
-                        Text("Longitude:")
-                            .frame(width: 80, alignment: .trailing)
-                        TextField("Enter longitude", text: $longitude)
-                            .frame(width: 120)
-                            .textFieldStyle(.roundedBorder)
-                    }
-                    
-                    // Altitude Input
-                    HStack {
-                        Text("Altitude:")
-                            .frame(width: 80, alignment: .trailing)
-                        TextField("Enter altitude", text: $altitude)
-                            .frame(width: 120)
-                            .textFieldStyle(.roundedBorder)
+                    Group {
+                        // Latitude Input
+                        HStack {
+                            Text("Latitude:")
+                                .frame(width: 65, alignment: .trailing)
+                                .font(.system(size: 13))
+                            TextField("", text: $latitude)
+                                .textFieldStyle(.roundedBorder)
+                                .frame(width: 120)
+                        }
+                        
+                        // Longitude Input
+                        HStack {
+                            Text("Longitude:")
+                                .frame(width: 65, alignment: .trailing)
+                                .font(.system(size: 13))
+                            TextField("", text: $longitude)
+                                .textFieldStyle(.roundedBorder)
+                                .frame(width: 120)
+                        }
+                        
+                        // Altitude Input
+                        HStack {
+                            Text("Altitude:")
+                                .frame(width: 65, alignment: .trailing)
+                                .font(.system(size: 13))
+                            TextField("", text: $altitude)
+                                .textFieldStyle(.roundedBorder)
+                                .frame(width: 120)
+                        }
                     }
                     
                     // Update Button
@@ -68,13 +74,16 @@ struct ContentView: View {
                         // TODO: Implement location update
                     }
                     .buttonStyle(.borderedProminent)
-                    .padding(.top, 8)
+                    .disabled(!isConnected)
+                    .padding(.top, 4)
                 }
-                .padding()
+                .padding(.vertical, 8)
             }
+            
+            Spacer()
         }
-        .frame(width: 300, height: 400)
-        .padding()
+        .frame(width: 250, height: isConnected ? 300 : 150)
+        .padding(.horizontal)
     }
 }
 
