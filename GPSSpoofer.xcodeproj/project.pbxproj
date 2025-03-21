@@ -11,6 +11,7 @@
 		51A3B09C2D8D13110071BA81 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3B09B2D8D13110071BA81 /* ContentView.swift */; };
 		51A3B09E2D8D13130071BA81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51A3B09D2D8D13130071BA81 /* Assets.xcassets */; };
 		51A3B0A12D8D13130071BA81 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51A3B0A02D8D13130071BA81 /* Preview Assets.xcassets */; };
+		51A3B0A82D8D13C40071BA81 /* Podfile.metal in Sources */ = {isa = PBXBuildFile; fileRef = 51A3B0A72D8D13C40071BA81 /* Podfile.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		51A3B09B2D8D13110071BA81 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		51A3B09D2D8D13130071BA81 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		51A3B0A02D8D13130071BA81 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		51A3B0A72D8D13C40071BA81 /* Podfile.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Podfile.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +37,7 @@
 		51A3B08D2D8D13110071BA81 = {
 			isa = PBXGroup;
 			children = (
+				51A3B0A72D8D13C40071BA81 /* Podfile.metal */,
 				51A3B0982D8D13110071BA81 /* GPSSpoofer */,
 				51A3B0972D8D13110071BA81 /* Products */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51A3B0A82D8D13C40071BA81 /* Podfile.metal in Sources */,
 				51A3B09C2D8D13110071BA81 /* ContentView.swift in Sources */,
 				51A3B09A2D8D13110071BA81 /* GPSSpooferApp.swift in Sources */,
 			);
