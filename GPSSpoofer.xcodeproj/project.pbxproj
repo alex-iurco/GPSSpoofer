@@ -20,7 +20,7 @@
 /* Begin PBXFileReference section */
 		51A3B0962D8D13110071BA81 /* GPSSpoofer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPSSpoofer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51A3B0992D8D13110071BA81 /* GPSSpooferApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSSpooferApp.swift; sourceTree = "<group>"; };
-		51A3B09B2D8D13110071BA81 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		51A3B09B2D8D13110071BA81 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		51A3B09D2D8D13130071BA81 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		51A3B0A02D8D13130071BA81 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		51A3B0A92D8D13130071BA81 /* GPSSpoofer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GPSSpoofer.entitlements; sourceTree = "<group>"; };
@@ -70,6 +70,14 @@
 			path = GPSSpoofer;
 			sourceTree = "<group>";
 		};
+		51A3B09F2D8D13130071BA81 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				51A3B0A02D8D13130071BA81 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		51A3B0AD2D8D13160071BA81 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -103,14 +111,6 @@
 				51A3B0B42D8D131A0071BA82 /* USBDeviceCommunication.swift */,
 			);
 			path = DeviceManager;
-			sourceTree = "<group>";
-		};
-		51A3B09F2D8D13130071BA81 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				51A3B0A02D8D13130071BA81 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

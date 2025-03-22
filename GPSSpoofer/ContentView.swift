@@ -19,26 +19,8 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { geometry in // Use GeometryReader for responsive layout
             HStack {
-                // Left Side: Map View
-                VStack {
-                    Map(coordinateRegion: $region)
-                        .frame(width: geometry.size.width * 0.5, height: geometry.size.height) // Responsive width
-                    // Map Controls
-                    HStack {
-                        Button("Zoom In") {
-                            // Zoom in logic
-                        }
-                        Button("Zoom Out") {
-                            // Zoom out logic
-                        }
-                        Button("Center Map") {
-                            region.center = CLLocationCoordinate2D(latitude: Double(latitude) ?? 0, longitude: Double(longitude) ?? 0)
-                        }
-                    }
-                }
-                
-                // Right Side: Existing Controls
-                VStack(alignment: .center, spacing: 16) {
+                // Right Side: Existing Controls (moved from left)
+                VStack(alignment: .leading, spacing: 16) {
                     Text("GPS Spoofer")
                         .font(.system(size: 24, weight: .medium))
                         .padding(.top, 12)
@@ -94,6 +76,25 @@ struct ContentView: View {
                             .disabled(latitude.isEmpty || longitude.isEmpty || altitude.isEmpty)
                         }
                         .padding(.vertical)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                
+                // Left Side: Map View (moved from right)
+                VStack {
+                    Map(coordinateRegion: $region)
+                        .frame(width: geometry.size.width * 0.5, height: geometry.size.height) // Responsive width
+                    // Map Controls
+                    HStack {
+                        Button("Zoom In") {
+                            // Zoom in logic
+                        }
+                        Button("Zoom Out") {
+                            // Zoom out logic
+                        }
+                        Button("Center Map") {
+                            region.center = CLLocationCoordinate2D(latitude: Double(latitude) ?? 0, longitude: Double(longitude) ?? 0)
+                        }
                     }
                 }
             }
