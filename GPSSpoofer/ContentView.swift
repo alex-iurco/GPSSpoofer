@@ -2,7 +2,7 @@
 //  GPSSpoofer
 
 import SwiftUI
-import MapKit // Import MapKit for map functionality
+import MapKit
 
 struct ContentView: View {
     @State private var isConnected = false
@@ -12,97 +12,99 @@ struct ContentView: View {
     
     // Map state
     @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
+        center: CLLocationCoordinate2D(latitude: 47.67, longitude: -122.12),
         span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
     )
     
+    // Fixed width for the control panel
+    private let controlPanelWidth: CGFloat = 250
+    
     var body: some View {
-        GeometryReader { geometry in // Use GeometryReader for responsive layout
-            HStack {
-                // Right Side: Existing Controls (moved from left)
-                VStack(alignment: .leading, spacing: 16) {
-                    Text("GPS Spoofer")
-                        .font(.system(size: 24, weight: .medium))
-                        .padding(.top, 12)
-                    
-                    HStack(spacing: 8) {
-                        Circle()
-                            .fill(isConnected ? .green : .red)
-                            .frame(width: 8, height: 8)
-                        Text(isConnected ? "Connected" : "Not Connected")
-                            .foregroundColor(isConnected ? .green : .red)
-                    }
-                    .padding(.bottom, 10)
-                    
-                    Button(action: {
-                        isConnected.toggle()
-                    }) {
-                        Text(isConnected ? "Disconnect" : "Connect")
-                            .frame(minWidth: 100)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .tint(isConnected ? .red : .blue)
-                    
-                    if isConnected {
-                        VStack(spacing: 16) {
-                            HStack {
-                                Text("Latitude:")
-                                    .frame(width: 65, alignment: .trailing)
-                                TextField("", text: $latitude)
-                                    .textFieldStyle(.roundedBorder)
-                                    .frame(width: 120)
-                            }
-                            
-                            HStack {
-                                Text("Longitude:")
-                                    .frame(width: 65, alignment: .trailing)
-                                TextField("", text: $longitude)
-                                    .textFieldStyle(.roundedBorder)
-                                    .frame(width: 120)
-                            }
-                            
-                            HStack {
-                                Text("Altitude:")
-                                    .frame(width: 65, alignment: .trailing)
-                                TextField("", text: $altitude)
-                                    .textFieldStyle(.roundedBorder)
-                                    .frame(width: 120)
-                            }
-                            
-                            Button("Update Location") {
-                                // Update location action
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .disabled(latitude.isEmpty || longitude.isEmpty || altitude.isEmpty)
-                        }
-                        .padding(.vertical)
-                    }
-                }
-                .frame(maxWidth: .infinity)
+        HStack(spacing: 0) {
+            // Left side: Control panel - fixed width
+            VStack(alignment: .center, spacing: 16) {
+                Text("GPS Spoofer")
+                    .font(.system(size: 24, weight: .medium))
+                    .padding(.top, 20)
                 
-                // Left Side: Map View (moved from right)
-                VStack {
-                    Map(coordinateRegion: $region)
-                        .frame(width: geometry.size.width * 0.5, height: geometry.size.height) // Responsive width
-                    // Map Controls
-                    HStack {
-                        Button("Zoom In") {
-                            // Zoom in logic
-                        }
-                        Button("Zoom Out") {
-                            // Zoom out logic
-                        }
-                        Button("Center Map") {
-                            region.center = CLLocationCoordinate2D(latitude: Double(latitude) ?? 0, longitude: Double(longitude) ?? 0)
-                        }
-                    }
+                HStack(spacing: 8) {
+                    Circle()
+                        .fill(isConnected ? .green : .red)
+                        .frame(width: 8, height: 8)
+                    Text(isConnected ? "Connected" : "Not Connected")
+                        .foregroundColor(isConnected ? .green : .red)
                 }
+                .padding(.bottom, 10)
+                
+                Button(action: {
+                    isConnected.toggle()
+                }) {
+                    Text(isConnected ? "Disconnect" : "Connect")
+                        .frame(minWidth: 100)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(isConnected ? .red : .blue)
+                
+                if isConnected {
+                    VStack(spacing: 16) {
+                        HStack {
+                            Text("Latitude:")
+                                .frame(width: 65, alignment: .trailing)
+                            TextField("", text: $latitude)
+                                .textFieldStyle(.roundedBorder)
+                                .frame(width: 120)
+                        }
+                        
+                        HStack {
+                            Text("Longitude:")
+                                .frame(width: 65, alignment: .trailing)
+                            TextField("", text: $longitude)
+                                .textFieldStyle(.roundedBorder)
+                                .frame(width: 120)
+                        }
+                        
+                        HStack {
+                            Text("Altitude:")
+                                .frame(width: 65, alignment: .trailing)
+                            TextField("", text: $altitude)
+                                .textFieldStyle(.roundedBorder)
+                                .frame(width: 120)
+                        }
+                        
+                        Button("Update Location") {
+                            if let lat = Double(latitude), let lon = Double(longitude) {
+                                region.center = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                            }
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .disabled(latitude.isEmpty || longitude.isEmpty || altitude.isEmpty)
+                    }
+                    .padding(.vertical)
+                }
+                
+                Spacer()
             }
-            .padding()
+            .frame(width: controlPanelWidth)
+            .frame(maxHeight: .infinity)
+            .background(Color(red: 0.2, green: 0.2, blue: 0.25))
+            
+            // Right side: Map View - expands to fill remaining space
+            VStack {
+                Map(coordinateRegion: $region)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+                // Legal text at bottom
+                HStack {
+                    Spacer()
+                    Text("Legal")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                        .padding(8)
+                }
+                .background(Color.blue.opacity(0.8))
+            }
+            .background(Color.blue)
         }
+        .edgesIgnoringSafeArea(.all)
     }
 }
-
-// #Preview {
-//     ContentView()
-// }
