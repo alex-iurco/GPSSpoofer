@@ -22,53 +22,58 @@ struct ContentView: View {
     var body: some View {
         HStack(spacing: 0) {
             // Left side: Control panel - fixed width
-            VStack(alignment: .center, spacing: 16) {
+            VStack(alignment: .leading, spacing: 16) {
                 Text("GPS Spoofer")
-                    .font(.system(size: 24, weight: .medium))
+                    .font({
+                        if #available(macOS 13.0, *) {
+                            return .system(.title3, weight: .semibold)
+                        } else {
+                            return .system(size: 14, weight: .semibold)
+                        }
+                    }())
+                    .foregroundColor(.primary)
                     .padding(.top, 20)
+                
+                Divider()
                 
                 HStack(spacing: 8) {
                     Circle()
                         .fill(isConnected ? .green : .red)
                         .frame(width: 8, height: 8)
                     Text(isConnected ? "Connected" : "Not Connected")
-                        .foregroundColor(isConnected ? .green : .red)
+                        .foregroundColor(.secondary)
                 }
-                .padding(.bottom, 10)
+                .padding(.vertical, 8)
                 
-                Button(action: {
-                    isConnected.toggle()
-                }) {
+                Button(action: { isConnected.toggle() }) {
                     Text(isConnected ? "Disconnect" : "Connect")
-                        .frame(minWidth: 100)
+                        .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(isConnected ? .red : .blue)
+                .padding(.bottom, 8)
                 
                 if isConnected {
-                    VStack(spacing: 16) {
-                        HStack {
+                    VStack(alignment: .leading, spacing: 12) {
+                        VStack(alignment: .leading, spacing: 4) {
                             Text("Latitude:")
-                                .frame(width: 65, alignment: .trailing)
+                                .foregroundColor(.primary)
                             TextField("", text: $latitude)
                                 .textFieldStyle(.roundedBorder)
-                                .frame(width: 120)
                         }
                         
-                        HStack {
+                        VStack(alignment: .leading, spacing: 4) {
                             Text("Longitude:")
-                                .frame(width: 65, alignment: .trailing)
+                                .foregroundColor(.primary)
                             TextField("", text: $longitude)
                                 .textFieldStyle(.roundedBorder)
-                                .frame(width: 120)
                         }
                         
-                        HStack {
+                        VStack(alignment: .leading, spacing: 4) {
                             Text("Altitude:")
-                                .frame(width: 65, alignment: .trailing)
+                                .foregroundColor(.primary)
                             TextField("", text: $altitude)
                                 .textFieldStyle(.roundedBorder)
-                                .frame(width: 120)
                         }
                         
                         Button("Update Location") {
@@ -76,17 +81,16 @@ struct ContentView: View {
                                 region.center = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                             }
                         }
-                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(.bordered)
                         .disabled(latitude.isEmpty || longitude.isEmpty || altitude.isEmpty)
                     }
-                    .padding(.vertical)
+                    .padding(.vertical, 8)
                 }
                 
                 Spacer()
             }
             .frame(width: controlPanelWidth)
-            .frame(maxHeight: .infinity)
-            .background(Color(red: 0.2, green: 0.2, blue: 0.25))
+            .background(Color(.windowBackgroundColor))
             
             // Right side: Map View - expands to fill remaining space
             VStack {
