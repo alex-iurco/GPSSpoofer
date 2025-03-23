@@ -90,21 +90,52 @@ struct ContentView: View {
             
             // Right side: Map View - expands to fill remaining space
             VStack {
-                Map(coordinateRegion: $region)
+                CustomMapView(region: $region)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
                 // Legal text at bottom
                 HStack {
                     Spacer()
                     Text("Legal")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                        .padding(8)
+                        .font(.caption2)
+                        .foregroundColor(.gray.opacity(0.7))
+                        .padding(4)
                 }
-                .background(Color.blue.opacity(0.8))
+                .background(Color.clear) // Remove the blue background entirely
             }
-            .background(Color.blue)
         }
         .edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct CustomMapView: NSViewRepresentable {
+    @Binding var region: MKCoordinateRegion
+    
+    func makeNSView(context: Context) -> MKMapView {
+        let mapView = MKMapView()
+        mapView.setRegion(region, animated: false)
+        customizeAttributionButton(mapView)
+        return mapView
+    }
+    
+    func updateNSView(_ mapView: MKMapView, context: Context) {
+        mapView.setRegion(region, animated: true)
+    }
+    
+    private func customizeAttributionButton(_ mapView: MKMapView) {
+        guard let button = mapView.subviews.compactMap({ $0 as? NSButton }).first else { return }
+        
+        // Style modifications
+        button.alphaValue = 0.6
+        button.isBordered = false
+        button.font = NSFont.systemFont(ofSize: 9)
+        
+        // Constraint adjustments
+        button.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            button.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -8),
+            button.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -8),
+            button.heightAnchor.constraint(equalToConstant: 20)
+        ])
     }
 }
