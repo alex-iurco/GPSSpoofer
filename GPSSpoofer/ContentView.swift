@@ -6,9 +6,6 @@ import MapKit
 
 struct ContentView: View {
     @State private var isConnected = false
-    @State private var latitude = ""
-    @State private var longitude = ""
-    @State private var altitude = ""
     
     // Map state
     @State private var region = MKCoordinateRegion(
@@ -45,52 +42,17 @@ struct ContentView: View {
                 }
                 .padding(.vertical, 8)
                 
-                Button(action: { isConnected.toggle() }) {
-                    Text(isConnected ? "Disconnect" : "Connect")
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(isConnected ? .red : .blue)
-                .padding(.bottom, 8)
+                Text(isConnected ? "Connected to USB device" : "No device connected")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                    .padding(.bottom, 16)
                 
-                if isConnected {
-                    VStack(alignment: .leading, spacing: 12) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Latitude:")
-                                .foregroundColor(.primary)
-                            TextField("", text: $latitude)
-                                .textFieldStyle(.roundedBorder)
-                        }
-                        
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Longitude:")
-                                .foregroundColor(.primary)
-                            TextField("", text: $longitude)
-                                .textFieldStyle(.roundedBorder)
-                        }
-                        
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Altitude:")
-                                .foregroundColor(.primary)
-                            TextField("", text: $altitude)
-                                .textFieldStyle(.roundedBorder)
-                        }
-                        
-                        Button("Update Location") {
-                            if let lat = Double(latitude), let lon = Double(longitude) {
-                                region.center = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-                            }
-                        }
-                        .buttonStyle(.bordered)
-                        .disabled(latitude.isEmpty || longitude.isEmpty || altitude.isEmpty)
-                    }
-                    .padding(.vertical, 8)
-                }
+                // Space for future features
                 
                 Spacer()
             }
             .frame(width: controlPanelWidth)
-            .background(Color(.windowBackgroundColor))
+            .background(Color(NSColor.windowBackgroundColor))
             
             // Right side: Map View - expands to fill remaining space
             VStack {
