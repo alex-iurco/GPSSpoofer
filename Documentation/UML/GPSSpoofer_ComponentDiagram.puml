@@ -1,0 +1,81 @@
+@startuml GPSSpoofer Component Diagram
+
+' Style settings
+skinparam componentStyle uml2
+skinparam componentBackgroundColor #EEEEEE
+skinparam componentBorderColor #666666
+skinparam componentFontStyle bold
+skinparam componentFontSize 14
+skinparam interfaceBackgroundColor #EEEEEE
+skinparam interfaceBorderColor #666666
+skinparam arrowColor #333333
+
+' Components
+[GPSSpooferApp] as App
+[ServiceProvider] as DI
+[View Layer] as View
+[ViewModel Layer] as ViewModel
+[Service Layer] as Service
+[Device Communication] as Device
+
+' Interfaces
+interface " " as ViewToVM
+interface " " as VMToService
+interface " " as ServiceToDevice
+interface " " as DeviceToHW
+
+' External components
+[USB Hardware] as HW #lightgray
+
+' Connections
+App -- DI
+View -- ViewToVM
+ViewModel - ViewToVM
+ViewModel -- VMToService
+Service - VMToService
+Service -- ServiceToDevice
+Device - ServiceToDevice
+Device -- DeviceToHW
+HW - DeviceToHW
+
+' Notes for explanation
+note right of App
+  Entry point and root component
+  Manages lifecycle and DI setup
+end note
+
+note right of DI
+  Manages dependency graph
+  Creates and provides services
+  Facilitates testing with mocks
+end note
+
+note right of View
+  SwiftUI views
+  - MainView
+  - MapView
+  - ConnectionStatusView
+  - SidebarView
+end note
+
+note right of ViewModel
+  Provides data to Views
+  - ConnectionViewModel
+  - MapViewModel
+  - LocationViewModel
+end note
+
+note right of Service
+  Business logic layer
+  - ConnectionService
+  - LocationService
+  - DeviceManagement
+end note
+
+note right of Device
+  Hardware abstraction layer
+  - USBConnectionManager
+  - USBDeviceCommunication
+end note
+
+@enduml 
