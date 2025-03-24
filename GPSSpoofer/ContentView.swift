@@ -16,6 +16,7 @@ struct ContentView: View {
     )
     
     // Fixed width for the control panel
+    // 
     private let controlPanelWidth: CGFloat = 250
     
     var body: some View {
