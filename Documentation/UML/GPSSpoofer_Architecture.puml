@@ -1,0 +1,202 @@
+@startuml GPSSpoofer Architecture
+
+' Style settings
+skinparam classAttributeIconSize 0
+skinparam classFontStyle bold
+skinparam classFontSize 14
+skinparam packageFontStyle bold
+skinparam packageFontSize 14
+skinparam arrowColor #333333
+skinparam linetype ortho
+
+' Package definitions
+package "App" {
+  class GPSSpooferApp <<App>> {
+    +body: some Scene
+    -performSetup()
+    -registerLifecycleObservers()
+    -makeContentView(): some View
+  }
+}
+
+package "Core" {
+  package "DependencyInjection" {
+    class ServiceProvider <<Singleton>> {
+      +shared: ServiceProvider
+      +connectionService: ConnectionServiceProtocol
+      +deviceManager: DeviceManagementProtocol
+      +locationService: LocationServiceProtocol
+      +makeConnectionViewModel(): ConnectionViewModel
+      +makeMapViewModel(): MapViewModel
+      -init()
+      +setConnectionService(service: ConnectionServiceProtocol)
+      +setDeviceManager(manager: DeviceManagementProtocol)
+      +setLocationService(service: LocationServiceProtocol)
+    }
+  }
+  
+  package "Protocols" {
+    interface ConnectionServiceProtocol {
+      +connectionState: USBConnectionState
+      +isConnected: Bool
+      +connectionStatePublisher: AnyPublisher<USBConnectionState, Never>
+      +connect(): Bool
+      +disconnect()
+      +isDeviceAvailable(): Bool
+    }
+    
+    interface DeviceManagementProtocol {
+      +isConnected: Bool
+      +error: Error?
+      +startDeviceDiscovery(): Bool
+      +disconnect()
+      +sendGPSData(location: Location): Bool
+    }
+    
+    interface LocationServiceProtocol {
+      +currentLocation: Location?
+      +locationPublisher: AnyPublisher<Location, Never>
+      +setLocation(location: Location)
+      +followRoute(route: Route, speed: Double, completion: () -> Void)
+      +stopFollowingRoute()
+      +activeRoute: Route?
+      +isFollowingRoute: Bool
+    }
+    
+    interface USBCommunicationProtocol {
+      +connectToDevice(service: Int): Bool
+      +disconnectFromDevice()
+      +sendData(data: Data): Bool
+      +readData(): Data?
+      +isDeviceConnected(): Bool
+    }
+  }
+}
+
+package "Features" {
+  package "Connection" {
+    package "ViewModels" {
+      class ConnectionViewModel {
+        -connectionService: ConnectionServiceProtocol?
+        -legacyConnectionService: USBConnectionService
+        +connectionState: ConnectionState
+        +isConnected: Bool
+        +connectionMessage: String
+        +connect(): Bool
+        +disconnect()
+        +isDeviceAvailable(): Bool
+      }
+    }
+    
+    package "Views" {
+      class ConnectionStatusView {
+        -viewModel: ConnectionViewModel
+      }
+    }
+    
+    package "Models" {
+      enum ConnectionState {
+        DISCONNECTED
+        CONNECTING
+        CONNECTED
+        ERROR
+      }
+      
+      enum USBConnectionState {
+        DISCONNECTED
+        CONNECTED
+      }
+    }
+  }
+  
+  package "Map" {
+    package "ViewModels" {
+      class MapViewModel {
+        -locationService: LocationServiceProtocol?
+        +region: MKCoordinateRegion
+        +selectedLocation: Location?
+        +waypoints: [Waypoint]
+        +currentRoute: Route?
+        +isEditMode: Bool
+      }
+    }
+  }
+  
+  package "Main" {
+    package "Views" {
+      class MainView {
+        -connectionViewModel: ConnectionViewModel
+        -mapViewModel: MapViewModel
+      }
+      
+      class SidebarView {
+        -connectionViewModel: ConnectionViewModel
+      }
+    }
+  }
+}
+
+package "Services" {
+  package "USB" {
+    class USBConnectionServiceImpl {
+      -connectionManager: USBConnectionManager
+      +connectionState: USBConnectionState
+    }
+  }
+  
+  package "USBConnection" {
+    class USBConnectionService <<Singleton>> {
+      +shared: USBConnectionService
+      -connectionManager: USBConnectionManager
+      +connectionState: USBConnectionState
+    }
+    
+    class USBConnectionManager {
+      +subscribe(handler: (USBConnectionState) -> Void): UUID
+      +unsubscribe(id: UUID)
+      +refreshConnectionState()
+    }
+  }
+  
+  package "DeviceManager" {
+    class DeviceManager {
+      +isConnected: Bool
+      +error: Error?
+      +startDeviceDiscovery(): Bool
+      +disconnect()
+      +sendGPSData(location: Location): Bool
+    }
+    
+    class USBDeviceCommunication {
+      +connectToDevice(service: io_service_t): Bool
+      +sendLocationData(data: Data): Bool
+    }
+  }
+}
+
+' Relationships
+GPSSpooferApp -- ServiceProvider : uses >
+ServiceProvider ..> ConnectionViewModel : creates >
+ServiceProvider ..> MapViewModel : creates >
+ServiceProvider --> ConnectionServiceProtocol : provides >
+ServiceProvider --> DeviceManagementProtocol : provides >
+ServiceProvider --> LocationServiceProtocol : provides >
+
+ConnectionViewModel o-- ConnectionServiceProtocol : uses >
+ConnectionViewModel o-- USBConnectionService : uses (legacy) >
+
+USBConnectionServiceImpl ..|> ConnectionServiceProtocol : implements
+DeviceManager ..|> DeviceManagementProtocol : implements
+
+MainView o-- ConnectionViewModel : contains >
+MainView o-- MapViewModel : contains >
+SidebarView o-- ConnectionViewModel : contains >
+
+USBConnectionService o-- USBConnectionManager : uses >
+USBConnectionServiceImpl o-- USBConnectionManager : uses >
+
+MapViewModel o-- LocationServiceProtocol : uses >
+
+ConnectionStatusView o-- ConnectionViewModel : visualizes >
+
+@enduml 

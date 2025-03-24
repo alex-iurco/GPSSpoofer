@@ -1,0 +1,81 @@
+@startuml GPSSpoofer Connection Sequence
+
+' Style settings
+skinparam sequenceArrowThickness 2
+skinparam sequenceGroupBackgroundColor #EEEEEE
+skinparam sequenceGroupBorderColor #666666
+skinparam sequenceGroupHeaderFontStyle bold
+skinparam sequenceGroupFontSize 14
+skinparam sequenceParticipantBorderColor #666666
+skinparam sequenceParticipantBackgroundColor #EEEEEE
+skinparam sequenceParticipantFontStyle bold
+skinparam sequenceParticipantFontSize 14
+
+actor User
+participant "MainView" as MainView
+participant "ConnectionStatusView" as ConnStatusView
+participant "ConnectionViewModel" as ConnViewModel
+participant "ServiceProvider" as ServiceProvider
+participant "ConnectionServiceProtocol\n(USBConnectionServiceImpl)" as ConnService
+participant "USBConnectionManager" as ConnManager
+
+' Start the sequence
+User -> MainView: Opens application
+activate MainView
+
+MainView -> ServiceProvider: Gets connectionViewModel
+activate ServiceProvider
+ServiceProvider -> ConnViewModel: creates
+activate ConnViewModel
+ConnViewModel -> ConnService: sets up bindings
+activate ConnService
+ConnService -> ConnManager: subscribe()
+activate ConnManager
+ConnManager -> ConnService: emits initial state
+deactivate ConnManager
+ConnService -> ConnViewModel: updates state
+deactivate ConnService
+deactivate ConnViewModel
+ServiceProvider --> MainView: returns viewModel
+deactivate ServiceProvider
+
+MainView -> ConnStatusView: passes connectionViewModel
+activate ConnStatusView
+ConnStatusView -> ConnViewModel: observes state
+activate ConnViewModel
+ConnViewModel --> ConnStatusView: state updates
+deactivate ConnViewModel
+ConnStatusView --> MainView: displays status
+deactivate ConnStatusView
+
+User -> ConnStatusView: clicks "Connect"
+activate ConnStatusView
+ConnStatusView -> ConnViewModel: connect()
+activate ConnViewModel
+ConnViewModel -> ConnService: connect()
+activate ConnService
+ConnService -> ConnManager: initiates connection
+activate ConnManager
+ConnManager -> ConnManager: checks for devices
+ConnManager --> ConnService: updates state to .connecting
+ConnService --> ConnViewModel: state updates to .connecting
+ConnViewModel --> ConnStatusView: updates UI (connecting)
+ConnStatusView --> User: shows connecting indicator
+
+ConnManager -> ConnManager: establishes connection
+ConnManager --> ConnService: updates state to .connected
+deactivate ConnManager
+ConnService --> ConnViewModel: state updates to .connected
+deactivate ConnService
+ConnViewModel -> ConnViewModel: updates message
+ConnViewModel --> ConnStatusView: updates UI (connected)
+deactivate ConnViewModel
+ConnStatusView --> User: shows connected status
+deactivate ConnStatusView
+
+' Alternative flow - connection fails
+note right of ConnManager
+  Alternative flow: Connection fails
+end note
+
+@enduml 
