@@ -15,6 +15,9 @@
 		51A3B0AC2D8D13150071BA81 /* ConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3B0AB2D8D13150071BA81 /* ConnectionService.swift */; };
 		51A3B0B22D8D131A0071BA81 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3B0B12D8D131A0071BA81 /* DeviceManager.swift */; };
 		51A3B0B32D8D131A0071BA82 /* USBDeviceCommunication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3B0B42D8D131A0071BA82 /* USBDeviceCommunication.swift */; };
+		51A3B0C12D8D131A0071BA83 /* USBConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3B0C22D8D131A0071BA83 /* USBConnectionState.swift */; };
+		51A3B0C32D8D131A0071BA84 /* USBConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3B0C42D8D131A0071BA84 /* USBConnectionManager.swift */; };
+		51A3B0C52D8D131A0071BA85 /* USBConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3B0C62D8D131A0071BA85 /* USBConnectionService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		51A3B0AB2D8D13150071BA81 /* ConnectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionService.swift; sourceTree = "<group>"; };
 		51A3B0B12D8D131A0071BA81 /* DeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
 		51A3B0B42D8D131A0071BA82 /* USBDeviceCommunication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USBDeviceCommunication.swift; sourceTree = "<group>"; };
+		51A3B0C22D8D131A0071BA83 /* USBConnectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USBConnectionState.swift; sourceTree = "<group>"; };
+		51A3B0C42D8D131A0071BA84 /* USBConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USBConnectionManager.swift; sourceTree = "<group>"; };
+		51A3B0C62D8D131A0071BA85 /* USBConnectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USBConnectionService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +90,7 @@
 				51A3B0AE2D8D13170071BA81 /* LocationService */,
 				51A3B0AF2D8D13180071BA81 /* ConnectionService */,
 				51A3B0B02D8D13190071BA81 /* DeviceManager */,
+				51A3B0B52D8D13190071BA81 /* USBConnection */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -111,6 +118,16 @@
 				51A3B0B42D8D131A0071BA82 /* USBDeviceCommunication.swift */,
 			);
 			path = DeviceManager;
+			sourceTree = "<group>";
+		};
+		51A3B0B52D8D13190071BA81 /* USBConnection */ = {
+			isa = PBXGroup;
+			children = (
+				51A3B0C22D8D131A0071BA83 /* USBConnectionState.swift */,
+				51A3B0C42D8D131A0071BA84 /* USBConnectionManager.swift */,
+				51A3B0C62D8D131A0071BA85 /* USBConnectionService.swift */,
+			);
+			path = USBConnection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,6 +206,9 @@
 				51A3B0AC2D8D13150071BA81 /* ConnectionService.swift in Sources */,
 				51A3B0B22D8D131A0071BA81 /* DeviceManager.swift in Sources */,
 				51A3B0B32D8D131A0071BA82 /* USBDeviceCommunication.swift in Sources */,
+				51A3B0C12D8D131A0071BA83 /* USBConnectionState.swift in Sources */,
+				51A3B0C32D8D131A0071BA84 /* USBConnectionManager.swift in Sources */,
+				51A3B0C52D8D131A0071BA85 /* USBConnectionService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

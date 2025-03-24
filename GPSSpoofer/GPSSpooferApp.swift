@@ -1,7 +1,10 @@
 import SwiftUI
+import Combine
 
 @main
 struct GPSSpooferApp: App {
+    // Initialize USB connection service
+    @StateObject private var usbConnectionService = USBConnectionService.shared
     var body: some Scene {
         WindowGroup {
             ContentView()

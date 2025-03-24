@@ -8,6 +8,15 @@ class ConnectionService: ObservableObject {
     private let deviceManager = DeviceManager()
     private var cancellables = Set<AnyCancellable>()
     
+    init() {
+        // Subscribe to device manager connection status
+        deviceManager.$isConnected
+            .sink { [weak self] connected in
+                self?.isConnected = connected
+            }
+            .store(in: &cancellables)
+    }
+    
     func connect() {
         isConnected = deviceManager.startDeviceDiscovery()
     }

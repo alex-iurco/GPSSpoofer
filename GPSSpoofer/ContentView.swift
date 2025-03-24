@@ -3,9 +3,11 @@
 
 import SwiftUI
 import MapKit
+import Combine
 
 struct ContentView: View {
-    @State private var isConnected = false
+    // Use the shared USB connection service
+    @ObservedObject private var usbConnectionService = USBConnectionService.shared
     
     // Map state
     @State private var region = MKCoordinateRegion(
@@ -35,14 +37,14 @@ struct ContentView: View {
                 
                 HStack(spacing: 8) {
                     Circle()
-                        .fill(isConnected ? .green : .red)
+                        .fill(usbConnectionService.isConnected ? .green : .red)
                         .frame(width: 8, height: 8)
-                    Text(isConnected ? "Connected" : "Not Connected")
+                    Text(usbConnectionService.isConnected ? "Connected" : "Not Connected")
                         .foregroundColor(.secondary)
                 }
                 .padding(.vertical, 8)
                 
-                Text(isConnected ? "Connected to USB device" : "No device connected")
+                Text(connectionStateMessage)
                     .font(.caption)
                     .foregroundColor(.gray)
                     .padding(.bottom, 16)
@@ -71,6 +73,20 @@ struct ContentView: View {
             }
         }
         .edgesIgnoringSafeArea(.all)
+    }
+}
+
+extension ContentView {
+    // Helper to get a more detailed connection state message
+    var connectionStateMessage: String {
+        switch usbConnectionService.connectionState {
+        case .connected:
+            return "Connected to USB device"
+        case .disconnected:
+            return "No device connected"
+        case .error(let message):
+            return "Connection error: \(message)"
+        }
     }
 }
 
